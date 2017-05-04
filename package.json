@@ -1,0 +1,31 @@
+{
+  "name": "telega",
+  "version": "0.1.1",
+  "description": "![](http://www.sadik92.ru/products_pictures/telega_bol.jpg)",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "overload-js": "^1.0.0",
+    "telegram-bot-api": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedFoxCode/telega.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedFoxCode/telega/issues"
+  },
+  "homepage": "https://github.com/RedFoxCode/telega#readme"
+}
