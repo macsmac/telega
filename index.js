@@ -105,7 +105,7 @@ const Telega = function(arg) {
 		}
 
 		message.lines = function(lines) {
-			message.send(lines.join("\n"));
+			message.send(typeof lines === "array" ? lines.join("\n") : [].join.call(arguments, "\n"));
 		}
 
 		message._inline = function(text, data, many, handler) {
