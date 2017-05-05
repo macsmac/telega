@@ -76,9 +76,11 @@ const Telega = function(arg) {
 
 			if (!_inline) return;
 
-			_inline(message);
+			_inline.handler(message);
 
-			delete _this._inlines[message.chat.id];
+			if (!_inline.many) {
+				delete _this._inlines[message.chat.id];
+			}
 		});
 	}
 
@@ -106,7 +108,7 @@ const Telega = function(arg) {
 			message.send(lines.join("\n"));
 		}
 
-		message.inline = function(text, data, handler) {
+		message._inline = function(text, data, many, handler) {
 			var raws = [];
 
 			data.forEach(function(item) {
@@ -125,7 +127,10 @@ const Telega = function(arg) {
 				}
 			});
 
-			_this._inlines[message.chat.id] = handler;
+			_this._inlines[message.chat.id] = { 
+				handler: handler,
+				many: many
+			}
 
 			_this.api.sendMessage({
 				chat_id: message.chat.id,
@@ -133,6 +138,14 @@ const Telega = function(arg) {
 				reply_markup: JSON.stringify({ inline_keyboard: raws })
 			});
 		}
+
+		message.inline = overload()
+			.args(String, Array, Function).use(function(text, data, handler) {
+				message._inline(text, data, null, handler);
+			})
+			.args(String, Array, Boolean, Function).use(function(text, data, many, handler) {
+				message._inline(text, data, many, handler);
+			});
 
 		message.answer = function(handler) {
 			_this._answers[message.from.id] = handler;
