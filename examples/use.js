@@ -1,8 +1,30 @@
 const Bot = require("../index.js"); 
 const bot = new Bot("<token>");
 
-bot.use(function(message) {
+bot.use(function(message, next) {
+	console.log("First middleware called");
+
 	console.log("(" + (message.from.username || message.from.id) + ") " + message.text);
+
+	next();
+});
+
+bot.use(function(message, next) {
+	console.log("Second middleware called");
+
+	setTimeout(function() {
+		console.log("Next");
+		next();
+	}, 5000);
+});
+
+bot.use(function(message, next) {
+	console.log("Third middleware called");
+
+	setTimeout(function() {
+		console.log("Next");
+		next();
+	}, 2000);
 });
 
 bot.cmd("/start", function(message) {

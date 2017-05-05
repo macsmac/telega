@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "overload-js": "^1.0.0",
-    "telegram-bot-api": "^1.2.0"
+    "telegram-bot-api": "^1.2.0",
+    "async": "^2.4.0"
   },
   "repository": {
     "type": "git",

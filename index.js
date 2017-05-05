@@ -7,6 +7,7 @@ const DEFAULT_OPTIONS = {
 
 const Telegram = require("telegram-bot-api");
 
+const async = require("async");
 const overload = require("overload-js");
 
 const Telega = function(arg) {
@@ -157,28 +158,38 @@ const Telega = function(arg) {
 
 		this.modifyMessage(message);
 
-		this._uses.forEach(function(use) {
-			use(message);
+		async.eachSeries(this._uses, function(use, callback) {
+			use(message, function(error) {
+				callback(error || null);
+			});
+		}, function(error) {
+			if (error) {
+				throw error;
+			}
+
+			handler();
 		});
 
-		const _answer = this._answers[message.from.id];
+		function handler() {
+			const _answer = _this._answers[message.from.id];
 
-		if (_answer) {
-			_answer(message);
-			delete this._answers[message.from.id];
+			if (_answer) {
+				_answer(message);
+				delete _this._answers[message.from.id];
 
-			return;
+				return;
+			}
+
+			const _cmd = _this._cmds[message.method.toLowerCase()];
+
+			if (!_cmd) return;
+
+			if (_cmd.regexp) {
+				message.matched = message.search.match(_cmd.regexp);
+			}
+
+			_cmd.handler(message);
 		}
-
-		const _cmd = this._cmds[message.method.toLowerCase()];
-
-		if (!_cmd) return;
-
-		if (_cmd.regexp) {
-			message.matched = message.search.match(_cmd.regexp);
-		}
-
-		_cmd.handler(message);
 	}
 }
 

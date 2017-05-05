@@ -2,11 +2,11 @@ const Bot = require("../index.js");
 const bot = new Bot("<token>");
 
 bot.cmd("/start", function(message) {
-	message.lines([
+	message.lines(
 		"Hello!",
 		"This bot can echo your messages!",
 		"For example: /echo apple"
-	]);
+	);
 });
 
 bot.cmd("/echo", function(message) {
