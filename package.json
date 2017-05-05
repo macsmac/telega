@@ -1,6 +1,6 @@
 {
   "name": "telega",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Telega is a library based on telegram-bot-api for making Telegram bots fast and easily",
   "main": "index.js",
   "directories": {
