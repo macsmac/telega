@@ -20,6 +20,7 @@ const Telega = function(arg) {
 	this.api = new Telegram(params);
 
 	this._uses = [];
+	this._matches = [];
 	this._answers = {};
 	this._inlines = {};
 	this._cmds = {};
@@ -48,6 +49,13 @@ const Telega = function(arg) {
 
 	this.use = function(handler) {
 		this._uses.push(handler);
+	}
+
+	this.match = function(regexp, handler) {
+		this._matches.push({
+			regexp: regexp,
+			handler: handler
+		});
 	}
 
 	this.cmd = overload()
@@ -182,13 +190,21 @@ const Telega = function(arg) {
 
 			const _cmd = _this._cmds[message.method.toLowerCase()];
 
-			if (!_cmd) return;
+			if (!_cmd) {
+				const _match = _this._matches.find(function(match) {
+					return message.text && message.text.match(match.regexp);
+				});
 
-			if (_cmd.regexp) {
-				message.matched = message.search.match(_cmd.regexp);
+				if (!_match) return;
+
+				_match.handler(message);
+			} else {
+				if (_cmd.regexp) {
+					message.matched = message.search.match(_cmd.regexp);
+				}
+
+				_cmd.handler(message);
 			}
-
-			_cmd.handler(message);
 		}
 	}
 }
