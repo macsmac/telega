@@ -6,7 +6,7 @@ Telega is a library based on [telegram-bot-api](https://npmjs.com/package/telegr
 
 # Documentation
 
-Documentation is avalible on [wiki](https://github.com/RedFoxCode/telega/wiki)
+Documentation is avaliable on [wiki](https://github.com/RedFoxCode/telega/wiki)
 
 # Other
 
