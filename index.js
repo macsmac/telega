@@ -17,9 +17,12 @@ const Telega = function(arg) {
 	if (typeof arg === "string") params.token = arg;
 	else if (typeof arg === "object") params = arg;
 
+	this.ACTIONS = ["new_chat_member", "left_chat_member", "new_chat_title", "new_chat_photo", "group_chat_created", "supergroup_chat_created", "channel_chat_created", "migrate_to_chat_id", "migrate_from_chat_id", "pinned_message"];
+
 	this.api = new Telegram(params);
 
 	this._uses = [];
+	this._actions = [];
 	this._matches = [];
 	this._answers = {};
 	this._inlines = {};
@@ -49,6 +52,15 @@ const Telega = function(arg) {
 
 	this.use = function(handler) {
 		this._uses.push(handler);
+	}
+
+	this.action = function(type, handler) {
+		if (this.ACTIONS.indexOf(type) == -1) return false;
+
+		this._actions.push({
+			type: type,
+			handler: handler
+		});
 	}
 
 	this.match = function(regexp, handler) {
@@ -179,6 +191,17 @@ const Telega = function(arg) {
 		});
 
 		function handler() {
+			const _action = _this._actions.find(function(action) {
+				return Object.keys(message).indexOf(action.type) != -1;
+			});
+
+			if (_action) {
+				message.action_type = _action.type;
+				message.action_data = message[_action.type];
+
+				return _action.handler(message);
+			}
+
 			const _answer = _this._answers[message.from.id];
 
 			if (_answer) {
