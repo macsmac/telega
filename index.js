@@ -118,16 +118,16 @@ const Telega = function(arg) {
 		}
 
 		message._inline = function(text, data, many, handler) {
-			var raws = [];
+			var rows = [];
 
 			data.forEach(function(item) {
-				if (raws[item.raw]) {
-					raws[item.raw].push({
+				if (rows[item.row]) {
+					rows[item.row].push({
 						text: item.text,
 						callback_data: item.data	
 					});
 				} else {
-					raws[item.raw] = [
+					rows[item.row] = [
 						{
 							text: item.text,
 							callback_data: item.data	

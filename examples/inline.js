@@ -13,17 +13,17 @@ bot.cmd("/test", function(message) {
 		{
 			text: "Cell 1",
 			data: "1",
-			raw: 0
+			row: 0
 		},
 		{
 			text: "Cell 2",
 			data: "2",
-			raw: 0
+			row: 0
 		},
 		{
 			text: "Cell 3",
 			data: "3",
-			raw: 1
+			row: 1
 		}
 	], function(message) {
 		message.send(Object.keys(bot._inlines) + "\n" + "You clicked: ", message.data);
