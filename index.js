@@ -119,7 +119,7 @@ const Telega = function(arg) {
 		message.search = parsed.search || "";
 
 		message.send = function() {
-			_this.api.sendMessage({
+			return _this.api.sendMessage({
 				chat_id: message.chat.id,
 				text: [].join.call(arguments, " ")
 			});
@@ -153,7 +153,7 @@ const Telega = function(arg) {
 				many: many
 			}
 
-			_this.api.sendMessage({
+			return _this.api.sendMessage({
 				chat_id: message.chat.id,
 				text: text,
 				reply_markup: JSON.stringify({ inline_keyboard: raws })
@@ -162,10 +162,10 @@ const Telega = function(arg) {
 
 		message.inline = overload()
 			.args(String, Array, Function).use(function(text, data, handler) {
-				message._inline(text, data, null, handler);
+				return message._inline(text, data, null, handler);
 			})
 			.args(String, Array, Boolean, Function).use(function(text, data, many, handler) {
-				message._inline(text, data, many, handler);
+				return message._inline(text, data, many, handler);
 			});
 
 		message.answer = function(handler) {
