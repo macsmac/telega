@@ -60,7 +60,7 @@ const Telega = function(arg) {
 	}
 
 	this.action = function(type, handler) {
-		if (this.ACTIONS.indexOf(type) == -1) return false;
+		if (this.ACTIONS.indexOf(type) === -1) return false;
 
 		this._actions.push({
 			type: type,
@@ -202,7 +202,7 @@ const Telega = function(arg) {
 
 		function handler() {
 			const _action = _this._actions.find(function(action) {
-				return Object.keys(message).indexOf(action.type) != -1;
+				return Object.keys(message).indexOf(action.type) !== -1;
 			});
 
 			if (_action) {
@@ -232,7 +232,7 @@ const Telega = function(arg) {
 
 				_match.handler(message);
 			} else {
-				if (message.target != _this.username) {
+				if (message.target !== _this.username) {
 					return;
 				}
 
