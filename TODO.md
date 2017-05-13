@@ -39,3 +39,7 @@ bot.inline(function(message) {
     message.reply(/* Telegram inline answers format */);
 });
 ```
+
+### Mocha tests
+
+Nothing to add here, just tests
