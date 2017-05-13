@@ -166,7 +166,7 @@ const Telega = function(arg) {
 			return _this.api.sendMessage({
 				chat_id: message.chat.id,
 				text: text,
-				reply_markup: JSON.stringify({ inline_keyboard: raws })
+				reply_markup: JSON.stringify({ inline_keyboard: rows })
 			});
 		}
 
