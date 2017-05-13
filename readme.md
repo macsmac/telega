@@ -1,4 +1,4 @@
-[![NPM version](http://img.shields.io/npm/v/telega.svg)](https://www.npmjs.org/package/telega) [![Built with Gulp](https://img.shields.io/badge/Built%20with-Gulp-orange.svg)](http://gulpjs.com)
+[![NPM version](http://img.shields.io/npm/v/telega.svg)](https://www.npmjs.org/package/telega) [![Built with Gulp](https://img.shields.io/badge/Built%20with-Gulp-orange.svg)](http://gulpjs.com) [![Dependencies status](https://david-dm.org/redfoxcode/telega.svg)](https://github.com/redfoxcode/telega)
 
 ![](http://www.sadik92.ru/products_pictures/telega_bol.jpg)
 
