@@ -36,16 +36,21 @@ const Telega = function(arg) {
 			var method = struct[0];
 			const args = struct.slice(1);
 			const search = args.join(" ");
+			const parts = method.split("@");
+			var target;
 
-			if (method.split("@").length > 1) {
-				method = method.split("@")[0];
+			if (parts.length > 1) {
+				method = parts[0];
+				target = parts[1];
 			}
 
 			return {
 				struct: struct,
 				method: method,
 				args: args,
-				search: search
+				search: search,
+				parts: parts,
+				target: target
 			}
 		}
 	}
@@ -103,6 +108,10 @@ const Telega = function(arg) {
 				delete _this._inlines[message.chat.id];
 			}
 		});
+
+		this.api.getMe().then(function(bot) {
+			_this.username = bot.username;
+		});
 	}
 
 	this.modifyMessage = function(message) {
@@ -117,6 +126,7 @@ const Telega = function(arg) {
 		message.method = parsed.method || "";
 		message.args = parsed.args || [];
 		message.search = parsed.search || "";
+		message.target = parsed.target || _this.username;
 
 		message.send = function() {
 			return _this.api.sendMessage({
@@ -222,6 +232,10 @@ const Telega = function(arg) {
 
 				_match.handler(message);
 			} else {
+				if (message.target != _this.username) {
+					return;
+				}
+
 				if (_cmd.regexp) {
 					message.matched = message.search.match(_cmd.regexp);
 				}
