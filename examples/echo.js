@@ -1,4 +1,4 @@
-const Bot = require("../index.js"); 
+const Bot = require("../build/index.js"); 
 const bot = new Bot("<token>");
 
 bot.cmd("/start", function(message) {
