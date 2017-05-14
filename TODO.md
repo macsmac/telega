@@ -24,12 +24,12 @@ bot.modify("inline.set", function(query, handler, next) {
 
 Same with: answers.get, answers.set, actions.get, actions.set
 
-### Inline mode
+### Inline mode | DONE
 
 Saw that inline bots on Telegram? I mean, when you mention bot you got something like interface.
 
 ```
-@gifs test
+@gif test
 ```
 
 I want to implement this. Example of code:
@@ -40,6 +40,12 @@ bot.inline(function(message) {
 });
 ```
 
-### Mocha tests
+**DONE**
+
+![Inline](/screenshots/inline_1.png);
+
+![Inline](/screenshots/inline_2.png);
+
+### Mocha tests | DONE
 
 Nothing to add here, just tests
