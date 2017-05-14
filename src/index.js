@@ -28,6 +28,8 @@ const Telega = function(arg) {
 	this._inlines = {};
 	this._cmds = {};
 
+	this._inline = null;
+
 	this.other = {
 		parseMessage: function(text) {
 			if (!text) return {};
@@ -75,6 +77,10 @@ const Telega = function(arg) {
 		});
 	}
 
+	this.inline = function(handler) {
+		this._inline = handler;
+	}
+
 	this.cmd = overload()
 		.args(String, Function).use(function(cmd, handler) {
 			_this._cmd(cmd, null, handler);
@@ -107,6 +113,22 @@ const Telega = function(arg) {
 			if (!_inline.many) {
 				delete _this._inlines[message.chat.id];
 			}
+		});
+
+		this.api.on("inline.query", function(message) {
+			if (!_this._inline) return;
+
+			message.reply = function(results) {
+				return _this.api.answerInlineQuery({
+					inline_query_id: message.id,
+					results: results.map(function(result) {
+						result.id = Math.random().toString().slice(2);
+						return result;
+					})
+				});
+			}
+
+			_this._inline(message);
 		});
 
 		this.api.getMe().then(function(bot) {
