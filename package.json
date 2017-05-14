@@ -28,7 +28,9 @@
   },
   "homepage": "https://github.com/RedFoxCode/telega#readme",
   "devDependencies": {
+    "assert": "^1.4.1",
     "gulp": "^3.9.1",
-    "gulp-uglify": "^2.1.2"
+    "gulp-uglify": "^2.1.2",
+    "mocha": "^3.3.0"
   }
 }
