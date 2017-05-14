@@ -1,8 +1,6 @@
 const Bot = require("../build/index.js"); 
 const bot = new Bot("<token>");
 
-const mathjs = require("mathjs");
-
 bot.cmd("/start", function(message) {
 	message.lines([
 		"Hello!",

@@ -130,7 +130,7 @@ describe("Advanced", function() {
 
 		bot.action("group_chat_created", function(message) {
 			done(
-				equal("group_chat_created", message.action_type),
+				equal("group_chat_created", message.action_type) &&
 				equal(true, !!message.action_data)
 			);
 
