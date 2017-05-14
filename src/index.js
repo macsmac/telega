@@ -25,6 +25,7 @@ const Telega = function(arg) {
 	this._actions = [];
 	this._matches = [];
 	this._answers = {};
+	this._replies = {};
 	this._inlines = {};
 	this._cmds = {};
 
@@ -200,6 +201,17 @@ const Telega = function(arg) {
 				return message._inline(text, data, many, handler);
 			});
 
+		message.reply = function(text, handler) {
+			return message.send(text).then(function(sended) {
+				_this._replies[message.from.id + "_" + message.chat.id] = {
+					handler: handler,
+					message_id: sended.message_id
+				};
+
+				return sended;
+			});
+		}
+
 		message.answer = function(handler) {
 			_this._answers[message.from.id] = handler;
 		}
@@ -239,6 +251,16 @@ const Telega = function(arg) {
 			if (_answer) {
 				_answer(message);
 				delete _this._answers[message.from.id];
+
+				return;
+			};
+
+			const _reply = _this._replies[message.from.id + "_" + message.chat.id];
+
+			if (message.reply_to_message && _reply && message.reply_to_message.from.username === _this.username && message.reply_to_message.message_id === _reply.message_id) {
+				_reply.handler(message);
+
+				delete _this._replies[message.from.id + "_" + message.chat.id];
 
 				return;
 			}
