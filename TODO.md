@@ -24,28 +24,15 @@ bot.modify("inline.set", function(query, handler, next) {
 
 Same with: answers.get, answers.set, actions.get, actions.set
 
-### Inline mode | DONE
+### Add options to answers, replies and inlines
 
-Saw that inline bots on Telegram? I mean, when you mention bot you got something like interface.
+Add argument `options` to answers, replies and inlines. It's object that contains following properties:
 
-```
-@gif test
-```
+* **once** - Receive reply only once and then do not accept replies from any user of chat
+* **multi** - Receive reply from users that don't replied to message (chat only)
+* **bindToChat** - Bind replies to current chat (useless if private message). Default **true**
 
-I want to implement this. Example of code:
+Already finished:
 
-```javascript
-bot.inline(function(message) {
-    message.reply(/* Telegram inline answers format */);
-});
-```
-
-**DONE**
-
-![Inline](/screenshots/inline_1.png);
-
-![Inline](/screenshots/inline_2.png);
-
-### Mocha tests | DONE
-
-Nothing to add here, just tests
+* inline mode
+* tests
